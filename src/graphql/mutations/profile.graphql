@@ -1,0 +1,140 @@
+mutation UpdateNickName($nickname: String!) {
+  updateNickname(nickname: $nickname) {
+    success
+    error {
+      code
+      message
+    }
+    content {
+      id
+      hasPassword
+      email
+      hidden
+    }
+  }
+}
+
+mutation SetHiddenProfile($isHidden: Boolean!) {
+  setHidden(value: $isHidden) {
+    success
+    error {
+      code
+      message
+    }
+    content {
+      id
+      hasPassword
+      email
+      hidden
+    }
+  }
+}
+
+mutation UpdateEmail($email: EmailAddress!) {
+  updateEmail(email: $email) {
+    success
+    error {
+      code
+      message
+    }
+    content {
+      id
+      hasPassword
+      email
+      hidden
+    }
+  }
+}
+
+mutation VerifyEmail($token: String!) {
+  verifyEmail(token: $token) {
+    success
+    error {
+      code
+      message
+    }
+    content {
+      id
+      hasPassword
+      email
+      emailVerified
+      hidden
+    }
+  }
+}
+
+mutation RemoveActiveDevice($deviceId: ID!) {
+  removeActiveDevice(deviceId: $deviceId) {
+    success
+    error {
+      code
+      message
+    }
+  }
+}
+
+mutation UpdateIdentification($input: IdentificationInput!) {
+  updateIdentification(input: $input) {
+    success
+    error {
+      code
+      message
+    }
+    content {
+      status
+      userId
+      identification {
+        id
+        firstName
+        lastName
+        gender
+        dateOfBirth
+        address
+        city
+        postalCode
+        countryCode
+      }
+    }
+  }
+}
+
+mutation UploadIdentificationPhotos(
+  $idFront: Upload
+  $idBack: Upload
+  $passport: Upload
+  $selfie: Upload!
+) {
+  uploadIdentificationPhotos(
+    idFront: $idFront
+    idBack: $idBack
+    passport: $passport
+    selfie: $selfie
+  ) {
+    success
+    error {
+      code
+      message
+    }
+  }
+}
+
+mutation UpdateAvatar($file: Upload!) {
+  updateAvatar(file: $file) {
+    success
+    error {
+      code
+      message
+    }
+    content {
+      id
+      avatar {
+        uri
+        square
+        small
+        medium
+        large
+      }
+      nickname
+    }
+  }
+}

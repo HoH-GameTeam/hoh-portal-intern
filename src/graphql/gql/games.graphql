@@ -1,0 +1,136 @@
+query Games($page: Int!, $pageSize: Int!, $publisherId: ID, $tags: [String!]) {
+  games(
+    page: $page
+    pageSize: $pageSize
+    publisherId: $publisherId
+    tags: $tags
+  ) {
+    hasMore
+    data {
+      id
+      name
+      slug
+      type
+      isMiniGame
+      thumbnail {
+        large
+        medium
+        square
+      }
+      tags
+      rtp
+      maxWinRate
+      publisher {
+        name
+        branch
+      }
+    }
+  }
+}
+
+query Game($slug: String!, $currencyId: ID!) {
+  game(slug: $slug) {
+    id
+    type
+    isMiniGame
+    likes
+    favorites
+    favored
+    name
+    slug
+    releaseDate
+    summary
+    description
+    reviewing
+    thumbnail {
+      square
+    }
+    previews {
+      square
+      large
+    }
+    tags
+    rtp
+    maxWinRate
+    publisher {
+      name
+      gameCount
+      logo {
+        square
+      }
+    }
+    gameBank(currencyId: $currencyId) {
+      id
+      amount
+      betRoom {
+        id
+        maxProfitRate
+        maxProfitAmount
+        floorPrice
+      }
+      slotBetRooms {
+        betRoomId
+        price
+        jackpotAmount
+      }
+    }
+  }
+}
+
+query GetGameBank($slug: String!, $currencyId: ID!) {
+  game(slug: $slug) {
+    id
+    gameBank(currencyId: $currencyId) {
+      id
+      amount
+      betRoom {
+        id
+        maxProfitRate
+        maxProfitAmount
+        floorPrice
+      }
+      slotBetRooms {
+        betRoomId
+        price
+        jackpotAmount
+      }
+    }
+  }
+}
+
+
+query MinesCurrentBet($gameId: ID!, $currencyId: ID!) {
+  minesCurrentBet(gameId: $gameId) {
+    result
+    bet {
+      id
+      betAmount
+      betChargeAmount
+      payoutRate
+      payoutAmount
+      equivalentUsdRate
+      game {
+        gameBank(currencyId: $currencyId) {
+          id
+          amount
+        }
+      }
+      betData {
+        ... on MinesBetData {
+          minesCount
+          currentMultiplier
+          nextMultiplier
+          minesCells
+          openedCells
+        }
+      }
+      currency {
+        name
+        shortName
+        decimalDigits
+        equivalentUsdRate
+      }
+    }
+  }
+}
+

@@ -1,0 +1,16 @@
+mutation CreateCryptoWithdrawal($currencyId: ID!, $network: BlockchainNetwork!, $address: String!, $amount: Decimal!) {
+    createCryptoWithdrawal(
+        currencyId: $currencyId
+        network: $network
+        address: $address
+        amount: $amount
+    ) {
+        id
+        amount
+        equivalentUsdRate
+        status
+        createdAt
+        updatedAt
+    }
+}
+

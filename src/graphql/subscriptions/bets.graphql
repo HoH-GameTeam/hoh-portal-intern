@@ -1,0 +1,109 @@
+subscription LatestBet {
+  latestBet {
+    id
+    equivalentUsdRate
+    betAmount
+    payoutRate
+    payoutAmount
+    createdAt
+    game {
+      id
+      name
+    }
+    currency {
+      id
+      shortName
+      decimalDigits
+      equivalentUsdRate
+    }
+    user {
+      id
+      avatar {
+        square
+      }
+      nickname
+    }
+  }
+}
+
+subscription LatestBetByGame($gameId: ID!) {
+  latestBetByGame(gameId: $gameId) {
+    id
+    equivalentUsdRate
+    betAmount
+    payoutRate
+    payoutAmount
+    createdAt
+    currency {
+      id
+      shortName
+      decimalDigits
+      equivalentUsdRate
+    }
+    game {
+      id
+      name
+    }
+    user {
+      id
+      avatar {
+        square
+      }
+      nickname
+    }
+  }
+}
+
+subscription HightBet {
+  highBet {
+    id
+    equivalentUsdRate
+    betAmount
+    payoutRate
+    payoutAmount
+    game {
+      id
+      name
+    }
+    currency {
+      id
+      shortName
+      decimalDigits
+      equivalentUsdRate
+    }
+    user {
+      id
+      avatar {
+        square
+      }
+      nickname
+    }
+  }
+}
+
+subscription HighBetByGame($gameId: ID!) {
+  highBetByGame(gameId: $gameId) {
+    id
+    equivalentUsdRate
+    betAmount
+    payoutRate
+    payoutAmount
+    game {
+      id
+      name
+    }
+    currency {
+      id
+      shortName
+      decimalDigits
+      equivalentUsdRate
+    }
+    user {
+      id
+      avatar {
+        square
+      }
+      nickname
+    }
+  }
+}

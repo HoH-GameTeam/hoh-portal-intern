@@ -1,0 +1,83 @@
+mutation Login($email: String!, $password: String!) {
+  login(input: { email: $email, password: $password }) {
+    success
+    error {
+      code
+      message
+    }
+    content {
+      accessToken
+    }
+  }
+}
+
+mutation LoginGoogle($token: String!) {
+  loginGoogle(token: $token) {
+    success
+    error {
+      code
+      message
+    }
+    content {
+      accessToken
+    }
+  }
+}
+
+mutation Register($email: EmailAddress!, $password: String!) {
+  register(input: { email: $email, password: $password }) {
+    success
+    error {
+      code
+      message
+    }
+    content {
+      accessToken
+    }
+  }
+}
+
+mutation ChangePassword($oldPassword: String!, $newPassword: String!) {
+  changePassword(oldPassword: $oldPassword, newPassword: $newPassword) {
+    success
+    error {
+      code
+      message
+    }
+    content {
+      id
+      hasPassword
+      email
+      hidden
+    }
+  }
+}
+
+mutation RequestRecoverPassword($email: EmailAddress!) {
+  requestRecoverPassword(email: $email) {
+    success
+    error {
+      code
+      message
+    }
+    content
+  }
+}
+
+mutation RecoverPassword($token: String!, $newPassword: String!) {
+  recoverPassword(token: $token, newPassword: $newPassword) {
+    success
+    error {
+      code
+      message
+    }
+    content
+  }
+}
+
+mutation Logout {
+  logout {
+    success
+    content
+  }
+}

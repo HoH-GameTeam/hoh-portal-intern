@@ -1,0 +1,237 @@
+mutation Favorite($gameId: ID!, $value: Boolean!) {
+  favorite(gameId: $gameId, value: $value) {
+    id
+    likes
+    liked
+    favorites
+    favored
+  }
+}
+
+mutation Like($gameId: ID!, $value: Boolean!) {
+  like(gameId: 1, value: true) {
+    id
+    likes
+    liked
+    favorites
+    favored
+  }
+}
+
+mutation MiniPokerBet($betRoomId: ID!,$currencyId: ID!) {
+  miniPokerBet(betRoomId: $betRoomId) {
+    result
+    bet {
+      id
+      betAmount
+      betChargeAmount
+      payoutRate
+      payoutAmount
+      betData {
+        ... on MiniPokerBetData {
+          winJackpotTotalAmount
+          miniPokerResult {
+            type
+            rate
+            cards {
+              rank
+              suit
+            }
+          }
+        }
+      }
+      game {
+        gameBank(currencyId: $currencyId) {
+          id
+          amount
+          betRoom {
+            id
+            maxProfitRate
+            maxProfitAmount
+            floorPrice
+          }
+          slotBetRooms {
+            betRoomId
+            price
+            jackpotAmount
+          }
+        }
+      }
+    }
+  }
+}
+
+mutation DiceBet(
+  $betRoomId: ID!
+  $amount: Decimal!
+  $isRollOver: Boolean!
+  $value: Decimal!
+  $currencyId: ID!
+) {
+  diceBet(
+    betRoomId: $betRoomId
+    amount: $amount
+    isRollOver: $isRollOver
+    value: $value
+  ) {
+    bet {
+      id
+      betAmount
+      betChargeAmount
+      payoutRate
+      payoutAmount
+      equivalentUsdRate
+      game {
+        gameBank(currencyId: $currencyId) {
+          id
+          amount
+          betRoom {
+            id
+            maxProfitRate
+            maxProfitAmount
+            floorPrice
+          }
+          slotBetRooms {
+            betRoomId
+            price
+            jackpotAmount
+          }
+        }
+      }
+      betData {
+        ... on DiceBetData {
+          isRollOver
+          result
+          betValue
+          winChance
+        }
+      }
+    }
+    result
+  }
+}
+
+mutation MinesBet (
+  $betRoomId: ID!
+  $currencyId: ID!
+  $amount: Decimal!
+  $mines: Int!
+  $cells: [Int!]
+  ) {
+    minesBet(
+      betRoomId: $betRoomId
+      amount: $amount
+      mines: $mines
+      cells: $cells
+    ) {
+      result
+      bet {
+        id
+        betAmount
+        betChargeAmount
+        payoutRate
+        payoutAmount
+        equivalentUsdRate
+        game {
+          gameBank(currencyId: $currencyId) {
+            id
+            amount
+          }
+        }
+        betData {
+          ... on MinesBetData {
+            minesCount
+            currentMultiplier
+            nextMultiplier
+            minesCells
+            openedCells
+          }
+        }
+      }
+  }
+}
+
+mutation MinesOpen($betRoomId: ID!, $cellIdx: Int!, $currencyId: ID!) {
+  minesOpen(betRoomId: $betRoomId, cellIdx: $cellIdx) {
+    result
+    bet {
+      id
+      betAmount
+      betChargeAmount
+      payoutRate
+      payoutAmount
+      equivalentUsdRate
+      game {
+        gameBank(currencyId: $currencyId) {
+          id
+          amount
+        }
+      }
+      betData {
+        ... on MinesBetData {
+          minesCount
+          currentMultiplier
+          nextMultiplier
+          minesCells
+          openedCells
+        }
+      }
+    }
+  }
+}
+
+
+mutation MinesCashOut($betRoomId: ID!, $currencyId: ID!) {
+  minesCashout(betRoomId: $betRoomId) {
+    result
+    bet {
+      id
+      betAmount
+      betChargeAmount
+      payoutRate
+      payoutAmount
+      equivalentUsdRate
+      game {
+        gameBank(currencyId: $currencyId) {
+          id
+          amount
+        }
+      }
+    }
+  }
+}
+
+mutation LimboBet(
+  $betRoomId: ID!
+  $currencyId: ID!
+  $amount: Decimal!
+  $multiplier: Decimal!
+) {
+  limboBet(
+    betRoomId: $betRoomId
+    amount: $amount
+    multiplier: $multiplier
+  ) {
+    result
+    bet {
+      id
+      betAmount
+      betChargeAmount
+      payoutRate
+      payoutAmount
+      equivalentUsdRate
+      game {
+        gameBank(currencyId: $currencyId) {
+          id
+          amount
+        }
+      }
+      betData {
+        ... on LimboBetData {
+          betMultiplier
+          result
+        }
+      }
+    }
+  }
+}

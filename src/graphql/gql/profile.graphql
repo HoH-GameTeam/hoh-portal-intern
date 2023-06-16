@@ -1,0 +1,53 @@
+query Me {
+  me {
+    user {
+      id
+      nickname
+      avatar {
+        uri
+        square
+        small
+        medium
+        large
+      }
+    }
+    profile {
+      id
+      hasPassword
+      email
+      emailVerified
+      hidden
+    }
+    activeDevices {
+      id
+      device
+      lastSeenIpAddress
+      lastSeenAt
+      current
+    }
+    userWallets {
+      id
+      currencyId
+      amount
+      lockedAmount
+    }
+  }
+}
+
+query UserIdentification {
+  userIdentification {
+    userId
+    status
+    identification {
+      id
+      firstName
+      lastName
+      gender
+      dateOfBirth
+      address
+      city
+      postalCode
+      countryCode
+    }
+  }
+}

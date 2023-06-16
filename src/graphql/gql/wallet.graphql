@@ -1,0 +1,97 @@
+
+query Currencies {
+    currencies {
+        id
+        name
+        shortName
+        type
+        decimalDigits
+        equivalentUsdRate
+        blockchainNetworks
+    }
+}
+
+
+query CryptoDepositAddress($currencyId: ID!, $network: BlockchainNetwork!) {
+  cryptoDepositAddress(currencyId: $currencyId, network: $network) {
+    id
+    address
+  }
+}
+
+query CryptoWithdrawalInfo($currencyId: ID!, $network: BlockchainNetwork!) {
+    cryptoWithdrawalInfo(currencyId: $currencyId, network: $network) {
+        id
+        feeAmount
+        feeRate
+        minimumAmount
+    }
+}
+
+
+query DepositTransactions($page: Int!, $pageSize: Int!, $currencyId: ID) {
+    depositTransactions(page: $page, pageSize: $pageSize, currencyId: $currencyId) {
+        hasMore
+        data {
+            id
+            amount
+            equivalentUsdRate
+            status
+            createdAt
+            currency {
+                name
+                shortName
+                decimalDigits
+                equivalentUsdRate
+            }
+            tx
+        }
+    }
+}
+
+query WithdrawalTransactions($page: Int!, $pageSize: Int!, $currencyId: ID) {
+    withdrawalTransactions(page: $page, pageSize: $pageSize, currencyId: $currencyId) {
+        hasMore
+        data {
+            id
+            amount
+            status
+            createdAt
+            currency {
+                name
+                shortName
+                decimalDigits
+                equivalentUsdRate
+            }
+            tx
+        }
+    }
+}
+
+query Transactions($page: Int!, $pageSize: Int!, $currencyId: ID, $group: TransactionGroup) {
+    transactions(
+        page: $page
+        pageSize: $pageSize
+        currencyId: $currencyId
+        group: $group
+    ) {
+        hasMore
+        data {
+            id
+            group
+            label
+            amount
+            remainAmount
+            equivalentUsdRate
+            createdAt
+            currency {
+                id
+                name
+                shortName
+                decimalDigits
+                equivalentUsdRate
+                blockchainNetworks
+            }
+        }
+    }
+}

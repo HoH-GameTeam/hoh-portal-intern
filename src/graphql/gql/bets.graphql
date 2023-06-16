@@ -1,0 +1,97 @@
+query MyBets ($page: Int!, $pageSize: Int!, $gameId: ID, $currencyId: Int){
+  myBets(page: $page, pageSize: $pageSize, gameId: $gameId, currencyId: $currencyId ) {
+    hasMore
+    data {
+      id
+      createdAt
+      betAmount
+      betChargeAmount
+      payoutRate
+      payoutAmount
+      equivalentUsdRate
+      game {
+        id
+        name
+        type
+        isMiniGame
+      }
+      currency {
+        id
+        shortName
+        decimalDigits
+        equivalentUsdRate
+      }
+    }
+  }
+}
+
+
+query Bet ($betId: ID!, $currencyId: ID!){
+  bet(id: $betId) {
+    id
+    createdAt
+    betAmount
+    betChargeAmount
+    payoutRate
+    payoutAmount
+    equivalentUsdRate
+    rngResult {
+      id
+      rng
+      rngPublicKey
+    }
+    game {
+      id
+      name
+      thumbnail {
+        square
+      }
+      publisher {
+        name
+      }
+      gameBank(currencyId: $currencyId) {
+        id
+        amount
+      }
+    }
+    currency {
+      id
+      shortName
+      decimalDigits
+      equivalentUsdRate
+    }
+  }
+}
+
+
+
+query JackpotWinners ($page: Int!, $pageSize: Int!, $gameId: ID){
+  jackpotWinBets(page: $page, pageSize: $pageSize, gameId: $gameId) {
+    hasMore
+    data {
+      betId
+      jackpotCount
+      jackpotTotalAmount
+      price
+      at
+      game {
+        id
+        slug
+        name
+      }
+      currency {
+        id
+        shortName
+        decimalDigits
+        equivalentUsdRate
+      }
+      user {
+        id
+        avatar {
+          square
+        }
+        nickname
+      }
+    }
+  }
+}
